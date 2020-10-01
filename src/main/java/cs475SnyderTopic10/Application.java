@@ -94,4 +94,9 @@ public class Application implements LambdaExpr {
     public String toString() {
         return "Application{" + "operand1=" + operand1 + ", operand2=" + operand2 + '}';
     }
+    
+    @Override
+    public String prettyPrint(){
+        return String.format("%s %s", operand1.prettyPrint(), operand2.prettyPrint());
+    }
 }

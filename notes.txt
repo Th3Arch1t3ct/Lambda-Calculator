@@ -1,0 +1,24 @@
+BIG O Analysis: This one was a tricky one to solve, but I applied the master
+theorem to estimate the time complexity of the application.
+    T(n) = aT(n/b) + f(n) == 2T(n/2) + n^1
+Because each child in the expression tree can only have, at most, 2 children,
+the size of each problem and sub-problem can only be 2. The non-recursive
+portions of the code run in O(n) time. where n is the depth of the expression
+tree (substitute, for example must traverse all children to do the substitution).
+This makes the recurrence relation of a ? b^d where d = 1
+Ultimately, the program runs in:
+    O(n log n)
+
+I tested with a variety of test cases:
+
+(x)
+(Lx. x)
+(Lx. x x x)
+(Lx. x y x)
+(Lx. x)(y)
+(Lx. x x)(y)
+(Lx. x x x)(y)
+(Lx. x y)(Lz. z)
+(Lx. x x)(Lx. x x)
+
+((((((((x))))))))

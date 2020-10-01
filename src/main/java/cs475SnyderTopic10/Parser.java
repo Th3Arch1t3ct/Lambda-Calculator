@@ -1,6 +1,6 @@
 /**
  * @author: Evan Snyder
- * @assignment: CS444 Final Project
+ * @assignment: CS475 Topic 10 Assignment
  * @created: Sep 17, 2020
  */
 
@@ -14,27 +14,30 @@ package cs475SnyderTopic10;
  */
 public class Parser {
     public LambdaExpr parse(String term) throws ParseException {
-        System.out.printf("Parsing: %s\n", term);
-        
+        // System.out.printf("Parsing: %s\n", term);
+        try{
         char c = term.charAt(0);
-        switch(c){
-            case '(':
-                if(1 + findBalancedRightParenPos(term) != term.length()) 
-                    return parseApplication(term);
-                return parse(term.substring(1, findBalancedRightParenPos(term)));
-            case 'L':
-                return parseAbstraction(term);
-            default:
-                if(term.length() != 1) return parseApplication(term);
-                return new Variable(c);
+            switch(c){
+                case '(':
+                    if(1 + findBalancedRightParenPos(term) != term.length()) 
+                        return parseApplication(term);
+                    return parse(term.substring(1, findBalancedRightParenPos(term)));
+                case 'L':
+                    return parseAbstraction(term);
+                default:
+                    if(term.length() != 1) return parseApplication(term);
+                    return new Variable(c);
+            }
+        } catch(StringIndexOutOfBoundsException e){
+            throw new ParseException("Invalid input");
         }
     }
     
     private Abstraction parseAbstraction(String term) throws ParseException {
-        System.out.printf("Parsing abstraction: %s\n", term);
+        // System.out.printf("Parsing abstraction: %s\n", term);
         Abstraction ab = new Abstraction();
         Variable v = new Variable(term.charAt(1));
-        System.out.printf("\tNew Variable: %c\n", v.getName());
+        //System.out.printf("\tNew Variable: %c\n", v.getName());
         ab.setBoundVar(v);
         
         ab.setBody(parse(term.substring(4)));
@@ -43,7 +46,7 @@ public class Parser {
     }
     
     private Application parseApplication(String term) throws ParseException {
-        System.out.printf("Parsing Application: %s\n", term);
+        // System.out.printf("Parsing Application: %s\n", term);
         // This might be the toughest one ? we need to iterate over whole thing
         // Parsing terms between the ()'s
         // If there is not ()'s, we need to left associate and only take the first two terms. 
@@ -67,16 +70,16 @@ public class Parser {
             
             term2 = term.substring(i, term.length());
         } else {
-            i = term.length() - 2;
+            i = term.length() - 1;
             term2 = term.substring(term.length()-1);
         }
         
-        System.out.printf("First term: %s\n", term.substring(0, i));
-        System.out.printf("Second term: %s\n", term2);
+        // System.out.printf("First term: %s\n", term.substring(0, i));
+        // System.out.printf("Second term: %s\n", term2);
         
         Application ap = new Application();
-        ap.setOperand1(parse(term.substring(0, i)));
-        ap.setOperand2(parse(term2));
+        ap.setOperand1(parse(term.substring(0, i).trim()));
+        ap.setOperand2(parse(term2.trim()));
         
         
         return ap;

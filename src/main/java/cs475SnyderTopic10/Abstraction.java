@@ -1,6 +1,6 @@
 /**
  * @author: Evan Snyder
- * @assignment: CS444 Final Project
+ * @assignment: CS475 Topic 10 Assignment
  * @created: Sep 17, 2020
  */
 
@@ -30,14 +30,7 @@ public class Abstraction implements LambdaExpr {
 
     @Override
     public LambdaExpr substitute(Variable var, LambdaExpr value) {
-        Abstraction newAb = (Abstraction)copy();
-        
-        LambdaExpr t = boundVar.substitute(var, value);
-        if(t!= null) newAb.setBoundVar((Variable)t);
-        
-        newAb.setBody(body.substitute(var, value));
-        
-        return newAb;
+        return body.substitute(var, value);
     }
 
     @Override
@@ -93,6 +86,11 @@ public class Abstraction implements LambdaExpr {
     @Override
     public String toString() {
         return "Abstraction{" + "boundVar=" + boundVar + ", body=" + body + '}';
+    }
+    
+    @Override
+    public String prettyPrint(){
+        return String.format("(L%s. %s)", boundVar.prettyPrint(), body.prettyPrint());
     }
     
 }

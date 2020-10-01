@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author: Evan Snyder
+ * @assignment: CS475 Topic 10 Assignment
+ * @created: Sep 17, 2020
  */
 package cs475SnyderTopic10;
 
@@ -13,4 +13,6 @@ public interface LambdaExpr {
     public LambdaExpr copy();
     public LambdaExpr substitute(Variable var, LambdaExpr value);
     public ExprKind type();
+    
+    public String prettyPrint();
 }

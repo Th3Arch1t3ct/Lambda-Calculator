@@ -67,4 +67,9 @@ public class Variable implements LambdaExpr {
     public String toString() {
         return "Variable{" + "name=" + name + '}';
     }
+    
+    @Override
+    public String prettyPrint(){
+        return String.format("%c", name);
+    }
 }
